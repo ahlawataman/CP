@@ -1,23 +1,37 @@
 class Solution {
 public:
     
+    /*
+        INITIALIZING PARENT AND RANKING VECTOR
+            PAR [1,2,3,4,5] // every node is independent initially
+            RANK [1,1,1,1,1] // every node has rank 1 i.e. graph component contains 1 node
+            
+        WE KEEP JOINING COMPONENTS AND UPDATE PAR & RANKS.
+        SMALLER RANK COMPONENT IS JOINED W/ HIGHER RANK COMPONENT.
+    
+    */
+    
+    // FINDING PARENT OF A NODE
     int find(int n, vector<int> &par) {
         int p = n;
         while(p!=par[p]) {
+            // OPTIMIZATION
             par[p] = par[par[p]];
             p = par[p];
         }
         return p;
     }
     
-    // UNION FIND W/ RANK (FOR UNION) ALGO
+    // UNION 2 COMPONENTS
     bool unionF(int n1, int n2, vector<int> &par, vector<int> &rank) {
         int p1 = find(n1, par);
         int p2 = find(n2, par);
         
+        // ELEMENTS HAVE SAME PARENT, SO REDUNDANT NODE FOUND, RETURN
         if(p1 == p2)
             return false;
         
+        // SMALLER RANK COMPONENT IS JOINED W/ HIGHER RANK COMPONENT
         if(rank[p1] > rank[p2]) {
             par[p2] = p1;
             rank[p1] += rank[p2];
