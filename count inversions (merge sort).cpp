@@ -1,4 +1,4 @@
-void mergeSort(vector<int> &A, int i, int mid, int j, int &res) {
+void merge(vector<int> &A, int i, int mid, int j, int &res) {
     int l1 = i;
     int l2 = mid+1;
     int k = 0;
@@ -18,19 +18,19 @@ void mergeSort(vector<int> &A, int i, int mid, int j, int &res) {
     }
 }
 
-void merge(vector<int> &A, int i, int j, int &res) {
+void mergeSort(vector<int> &A, int i, int j, int &res) {
     if(i<j) {
         int mid = i + (j-i)/2;
-        merge(A, i, mid, res);
-        merge(A, mid+1, j, res);
-        mergeSort(A, i, mid, j, res);
+        mergeSort(A, i, mid, res);
+        mergeSort(A, mid+1, j, res);
+        merge(A, i, mid, j, res);
     }
 }
 
 int main() {
     vector<int> A = {3,2,1};
     int res = 0;
-    merge(A, 0, A.size()-1, res);
+    mergeSort(A, 0, A.size()-1, res);
     // for(int i=0; i<A.size(); i++) {
     //     cout<<A[i]<<" ";
     // }
